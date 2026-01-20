@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AssetVault - Dashboard</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+}
+
+/* Layout */
+.container {
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background-color: #2c3e50;
+    height: 100vh;
+    padding-top: 20px;
+    position: fixed;
+}
+
+.sidebar h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.sidebar a:hover {
+    background-color: #34495e;
+}
+
+/* Main Content */
+.main {
+    margin-left: 220px;
+    padding: 20px;
+    width: 100%;
+}
+
+.header {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.back-btn{
+  position:fixed;
+  bottom:20px;
+}
+.back-btn button{
+  padding:8px 14px;
+  font-size:13px;
+  border:none;
+  border-radius:12px;
+  background:#1e1e2f;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>AssetVault</h2>
+        
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="asset list.html">📋 Asset List</a>
+        <a href="add asset.html">➕ Add Asset</a>
+        <a href="asset details.html">🔍 Asset Details</a>
+        <a href="assignment history.html">🕘 Assignment History</a>
+        <a href="maintenance log.html">🛠 Maintenance Log</a>
+        <a href="reports.html">📈 Reports</a>
+        <a href="alerts.html">🔔 Alerts</a>
+        <a href="documents.html">📁 Documents</a>
+        <a href="settings.html">⚙ Settings</a>
+        <a href="help page.html">❓ Help</a>
+        <a href="login.html">🚪 Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="header">
+            <h1>Dashboard</h1>
+            <p>Welcome to AssetVault Asset Management System</p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Total Assets</h3>
+                <p>120</p>
+            </div>
+
+            <div class="card">
+                <h3>Assigned</h3>
+                <p>85</p>
+            </div>
+
+            <div class="card">
+                <h3>Available</h3>
+                <p>30</p>
+            </div>
+
+            <div class="card">
+                <h3>Maintenance Due</h3>
+                <p>5</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="back-btn">
+  <button onclick="history.back()">← Back</button>
+</div>
+
+
+</body>
+</html>

@@ -2,32 +2,135 @@
 <html>
 <head>
 <title>Assignment History</title>
+
 <style>
-body { font-family: Arial; background:#f4f6f8; padding:20px; }
-table { width:100%; background:white; border-collapse:collapse; }
-th, td { border:1px solid #ccc; padding:10px; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+/* Animated Background */
+body{
+    min-height:100vh;
+    padding:30px;
+    background: linear-gradient(135deg,#b7f7d4,#d4ffe8,#b7f7d4);
+    background-size:400% 400%;
+    animation:bgMove 10s infinite;
+}
+
+/* Title */
+h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#1e4d3a;
+}
+
+/* 3D Table Card */
+.table-box{
+    background: rgba(255,255,255,0.9);
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    transform-style:preserve-3d;
+    transition:0.3s;
+}
+
+.table-box:hover{
+    transform: rotateX(4deg) rotateY(-4deg);
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#1e4d3a;
+    color:white;
+}
+
+th, td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+/* Row hover animation */
+tr:hover{
+    background:#e8fff4;
+    transform:scale(1.01);
+}
+
+/* Back button */
 .back-btn{
   position:fixed;
   bottom:20px;
 }
+
 .back-btn button{
-  padding:8px 14px;
-  font-size:13px;
+  padding:10px 16px;
   border:none;
-  border-radius:12px;
-  background:#1e1e2f;
+  border-radius:20px;
+  background:#1e4d3a;
   color:white;
+  cursor:pointer;
+}
+
+/* Background animation */
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 </style>
 </head>
+
 <body>
+
 <h2>Assignment History</h2>
-<table>
-<tr><th>Asset</th><th>User</th><th>Date</th></tr>
-<tr><td>Laptop</td><td>John</td><td>01-01-2026</td></tr>
+
+<div class="table-box">
+<table id="historyTable">
+
+<tr>
+<th>Asset</th>
+<th>User</th>
+<th>Date</th>
+<th>Status</th>
+</tr>
+
 </table>
+</div>
+
 <div class="back-btn">
   <button onclick="history.back()">← Back</button>
 </div>
+
+<script>
+/* Load Assignment History */
+let historyData = JSON.parse(localStorage.getItem("history")) || [
+
+{asset:"Laptop Dell XPS", user:"John", date:"01-01-2026", status:"Assigned"},
+{asset:"Projector Epson", user:"Mary", date:"05-01-2026", status:"Returned"},
+{asset:"Tablet Samsung", user:"Field Team", date:"12-01-2026", status:"Assigned"},
+{asset:"Router Cisco", user:"IT Dept", date:"18-01-2026", status:"Maintenance"}
+
+];
+
+let table = document.getElementById("historyTable");
+
+historyData.forEach(h=>{
+    let row = table.insertRow();
+    row.innerHTML = `
+        <td>${h.asset}</td>
+        <td>${h.user}</td>
+        <td>${h.date}</td>
+        <td>${h.status}</td>
+    `;
+});
+</script>
+
 </body>
 </html>

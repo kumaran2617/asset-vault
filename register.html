@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+
+<style>
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial;
+background: linear-gradient(-45deg,#1d2b64,#3498db,#6dd5fa,#1d2b64);
+background-size:400% 400%;
+animation:move 12s infinite;
+}
+
+.box{
+background:white;
+padding:30px;
+border-radius:12px;
+width:320px;
+}
+
+input,button{
+width:100%;
+padding:12px;
+margin-top:12px;
+}
+
+button{
+background:#3498db;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+#error{
+color:red;
+font-size:13px;
+margin-top:8px;
+}
+
+@keyframes move{
+0%{background-position:0%}
+50%{background-position:100%}
+100%{background-position:0%}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Create Account</h2>
+
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password (min 6 chars)">
+<input id="confirmPassword" type="password" placeholder="Confirm Password">
+
+<button onclick="registerUser()">Register</button>
+
+<div id="error"></div>
+
+</div>
+
+<script>
+function registerUser(){
+
+const u = document.getElementById("username").value.trim();
+const p = document.getElementById("password").value.trim();
+const c = document.getElementById("confirmPassword").value.trim();
+const err = document.getElementById("error");
+
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+if(u==="" || p==="" || c===""){
+err.textContent="All fields required";
+return;
+}
+
+if(p.length < 6){
+err.textContent="Password must be at least 6 characters";
+return;
+}
+
+if(p !== c){
+err.textContent="Passwords do not match";
+return;
+}
+
+if(users.some(x => x.username === u)){
+err.textContent="Username already exists";
+return;
+}
+
+users.push({username:u,password:p});
+localStorage.setItem("users", JSON.stringify(users));
+
+alert("Account created successfully!");
+window.location.href="login.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,20 +1,191 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
-<title>Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AssetVault Login</title>
+
 <style>
-body { font-family: Arial; background:#f4f6f8; }
-.box { width:300px; margin:100px auto; background:white; padding:20px; border-radius:5px; }
-input, button { width:100%; padding:10px; margin-top:10px; }
-button { background:#3498db; color:white; border:none; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
+
+/* Background */
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(-45deg,#1d2b64,#3498db,#6dd5fa,#1d2b64);
+    background-size:400% 400%;
+    animation:gradientBG 12s ease infinite;
+}
+
+/* Box */
+.box{
+    width:320px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+    transform-style:preserve-3d;
+    transition: transform 0.2s ease;
+    animation:fadeIn 1s ease;
+}
+
+/* Inputs */
+input{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+input:focus{border-color:#3498db;outline:none;}
+
+/* Button */
+button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    background:#3498db;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#217dbb;
+    transform:translateY(-2px);
+}
+
+/* Links */
+.links{
+    display:flex;
+    justify-content:space-between;
+    margin-top:12px;
+    font-size:13px;
+}
+
+.links a{
+    color:#3498db;
+    text-decoration:none;
+}
+
+.links a:hover{
+    text-decoration:underline;
+}
+
+/* Error */
+#error{
+    color:red;
+    font-size:13px;
+    margin-top:10px;
+    text-align:center;
+}
+
+/* Password Toggle */
+.toggle{position:relative;}
+.toggle span{
+    position:absolute;
+    right:10px;
+    top:22px;
+    cursor:pointer;
+    font-size:12px;
+    color:#3498db;
+}
+
+/* Animations */
+@keyframes gradientBG{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
 </style>
+
 </head>
+
 <body>
-<div class="box">
-<h2>Login</h2>
-<input type="text" placeholder="Username">
-<input type="password" placeholder="Password">
-<button onclick="location.href='dashboard.html'">Login</button>
+
+<div class="box" id="loginBox">
+
+<h2 style="text-align:center;">Login</h2>
+
+<input type="text" id="user" placeholder="Username">
+
+<div class="toggle">
+<input type="password" id="pass" placeholder="Password">
+<span onclick="togglePass()">Show</span>
 </div>
+
+<button onclick="validate()">Login</button>
+
+<div class="links">
+<a href="forgot.html">Forgot Password?</a>
+<a href="register.html">Create Account</a>
+</div>
+
+<div id="error"></div>
+
+</div>
+
+<script>
+
+/* LOGIN VALIDATION USING LocalStorage */
+function validate(){
+
+const u=user.value.trim();
+const p=pass.value.trim();
+const err=error;
+
+if(u==="" || p===""){
+err.textContent="Please enter username and password";
+return;
+}
+
+if(p.length < 6){
+err.textContent="Password must be at least 6 characters";
+return;
+}
+
+let users=JSON.parse(localStorage.getItem("users")) || [];
+
+let valid=users.find(x=>x.username===u && x.password===p);
+
+if(!valid){
+err.textContent="Invalid username or password";
+return;
+}
+
+window.location.href="dashboard.html";
+}
+
+/* Toggle Password */
+function togglePass(){
+pass.type = pass.type === "password" ? "text" : "password";
+}
+
+/* 3D Tilt */
+const box=document.getElementById("loginBox");
+
+document.addEventListener("mousemove",(e)=>{
+let x=(window.innerWidth/2-e.clientX)/25;
+let y=(window.innerHeight/2-e.clientY)/25;
+box.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`;
+});
+
+document.addEventListener("mouseleave",()=>{
+box.style.transform="rotateY(0deg) rotateX(0deg)";
+});
+
+</script>
+
 </body>
 </html>
+

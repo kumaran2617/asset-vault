@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reset Password</title>
+
+<style>
+body{
+font-family:Arial;
+background:#0f172a;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+color:white;
+}
+
+.box{
+background:white;
+color:black;
+padding:30px;
+border-radius:12px;
+width:320px;
+text-align:center;
+}
+
+input,button{
+width:100%;
+padding:12px;
+margin-top:10px;
+}
+
+button{
+background:#3498db;
+color:white;
+border:none;
+}
+
+#step2{
+display:none;
+animation:fade 1s;
+}
+
+#msg{
+color:red;
+font-size:13px;
+margin-top:8px;
+}
+
+@keyframes fade{
+from{opacity:0}
+to{opacity:1}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Forgot Password</h2>
+
+<input id="user" placeholder="Username">
+<button onclick="sendOTP()">Send OTP</button>
+
+<div id="step2">
+<input id="otpInput" placeholder="Enter OTP">
+<input id="newPass" type="password" placeholder="New Password">
+<button onclick="reset()">Reset Password</button>
+</div>
+
+<div id="msg"></div>
+
+</div>
+
+<script>
+let otp;
+
+function sendOTP(){
+
+let u=user.value.trim();
+let users=JSON.parse(localStorage.getItem("users")) || [];
+
+if(!users.find(x=>x.username===u)){
+msg.textContent="User not found";
+return;
+}
+
+otp=Math.floor(1000+Math.random()*9000);
+alert("Demo OTP: "+otp);
+
+step2.style.display="block";
+msg.textContent="";
+}
+
+function reset(){
+
+if(otpInput.value != otp){
+msg.textContent="Invalid OTP";
+return;
+}
+
+if(newPass.value.length < 6){
+msg.textContent="Password must be 6 characters";
+return;
+}
+
+let users=JSON.parse(localStorage.getItem("users"));
+
+users.forEach(x=>{
+if(x.username===user.value.trim()){
+x.password=newPass.value;
+}
+});
+
+localStorage.setItem("users",JSON.stringify(users));
+
+alert("Password Updated!");
+location.href="login.html";
+}
+</script>
+
+</body>
+</html>

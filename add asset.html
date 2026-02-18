@@ -2,35 +2,170 @@
 <html>
 <head>
 <title>Add Asset</title>
+
 <style>
-body { font-family: Arial; background:#f4f6f8; }
-form { background:white; padding:20px; width:300px; margin:50px auto; }
-input, button { width:100%; padding:10px; margin-top:10px; }
-button { background:#3498db; color:white; border:none; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+/* Animated Background */
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#b7f7d4,#d4ffe8,#b7f7d4);
+    background-size:400% 400%;
+    animation:bgMove 10s infinite;
+}
+
+/* 3D Form Card */
+form{
+    background: rgba(255,255,255,0.9);
+    padding:30px;
+    width:330px;
+    border-radius:14px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    transform-style:preserve-3d;
+    transition:0.3s;
+}
+
+form:hover{
+    transform: rotateX(3deg) rotateY(-3deg);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:15px;
+    color:#1e4d3a;
+}
+
+/* Inputs */
+input, select, button{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+input:focus, select:focus{
+    border-color:#1e4d3a;
+    outline:none;
+}
+
+/* Button */
+button{
+    background:#1e4d3a;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+/* Message */
+#msg{
+    margin-top:10px;
+    color:red;
+    font-size:13px;
+    text-align:center;
+}
+
+/* Back button */
 .back-btn{
   position:fixed;
   bottom:20px;
 }
 .back-btn button{
-  padding:8px 14px;
-  font-size:13px;
+  padding:10px 16px;
   border:none;
-  border-radius:12px;
-  background:#1e1e2f;
+  border-radius:20px;
+  background:#1e4d3a;
   color:white;
+}
+
+/* Background animation */
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 </style>
 </head>
+
 <body>
-<form>
+
+<form onsubmit="addAsset(event)">
 <h2>Add Asset</h2>
-<input type="text" placeholder="Asset Name">
-<input type="text" placeholder="Category">
-<input type="text" placeholder="Status">
-<button>Add</button>
+
+<input id="name" placeholder="Asset Name">
+
+<select id="category">
+<option value="">Select Category</option>
+<option>IT Equipment</option>
+<option>Furniture</option>
+<option>Office Device</option>
+<option>Networking</option>
+<option>Presentation</option>
+</select>
+
+<select id="status">
+<option value="">Select Status</option>
+<option>Available</option>
+<option>Assigned</option>
+<option>Maintenance</option>
+</select>
+
+<button>Add Asset</button>
+
+<div id="msg"></div>
+
 </form>
+
 <div class="back-btn">
   <button onclick="history.back()">← Back</button>
 </div>
+
+<script>
+function addAsset(e){
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const category = document.getElementById("category").value;
+    const status = document.getElementById("status").value;
+    const msg = document.getElementById("msg");
+
+    if(name==="" || category==="" || status===""){
+        msg.textContent="Please fill all fields";
+        return;
+    }
+
+    let assets = JSON.parse(localStorage.getItem("assets")) || [];
+
+    const newAsset = {
+        id: assets.length + 1,
+        name,
+        category,
+        status,
+        location:"Not Assigned"
+    };
+
+    assets.push(newAsset);
+    localStorage.setItem("assets", JSON.stringify(assets));
+
+    msg.style.color="green";
+    msg.textContent="Asset Added Successfully!";
+
+    document.querySelector("form").reset();
+}
+</script>
+
 </body>
 </html>
+

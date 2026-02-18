@@ -2,33 +2,112 @@
 <html>
 <head>
 <title>Asset Details</title>
+
 <style>
-body { font-family: Arial; background:#f4f6f8; padding:20px; }
-.box { background:white; padding:20px; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+/* Animated Background */
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#b7f7d4,#d4ffe8,#b7f7d4);
+    background-size:400% 400%;
+    animation:bgMove 10s infinite;
+}
+
+/* 3D Glass Card */
+.box{
+    background: rgba(255,255,255,0.9);
+    padding:30px;
+    width:340px;
+    border-radius:14px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    transform-style:preserve-3d;
+    transition:0.3s;
+}
+
+.box:hover{
+    transform: rotateX(4deg) rotateY(-4deg);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:15px;
+    color:#1e4d3a;
+}
+
+p{
+    margin:10px 0;
+    font-size:15px;
+}
+
+/* Back button */
 .back-btn{
   position:fixed;
   bottom:20px;
 }
 .back-btn button{
-  padding:8px 14px;
-  font-size:13px;
+  padding:10px 16px;
   border:none;
-  border-radius:12px;
-  background:#1e1e2f;
+  border-radius:20px;
+  background:#1e4d3a;
   color:white;
+}
+
+/* Animation */
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 </style>
 </head>
+
 <body>
+
 <div class="box">
 <h2>Asset Details</h2>
-<p>Name: Laptop</p>
-<p>Category: Electronics</p>
-<p>Status: Assigned</p>
-<p>Assigned To: John</p>
+
+<p><strong>Name:</strong> <span id="name"></span></p>
+<p><strong>Category:</strong> <span id="category"></span></p>
+<p><strong>Status:</strong> <span id="status"></span></p>
+<p><strong>Location:</strong> <span id="location"></span></p>
+<p><strong>Assigned To:</strong> <span id="assigned"></span></p>
+<p><strong>Purchase Date:</strong> <span id="date"></span></p>
+
 </div>
+
 <div class="back-btn">
   <button onclick="history.back()">← Back</button>
 </div>
+
+<script>
+/* Load asset from LocalStorage */
+let assets = JSON.parse(localStorage.getItem("assets")) || [];
+
+let asset = assets.length ? assets[assets.length-1] : {
+    name:"Laptop Dell XPS",
+    category:"IT Equipment",
+    status:"Assigned",
+    location:"Admin Dept",
+    assigned:"John Doe",
+    date:"2026-02-17"
+};
+
+document.getElementById("name").textContent = asset.name;
+document.getElementById("category").textContent = asset.category;
+document.getElementById("status").textContent = asset.status;
+document.getElementById("location").textContent = asset.location;
+document.getElementById("assigned").textContent = asset.assigned || "N/A";
+document.getElementById("date").textContent = asset.date || "Not Recorded";
+</script>
+
 </body>
 </html>

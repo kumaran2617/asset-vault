@@ -2,33 +2,128 @@
 <html>
 <head>
 <title>Asset List</title>
+
 <style>
-body { font-family: Arial; background:#f4f6f8; padding:20px; }
-table { width:100%; border-collapse:collapse; background:white; }
-th, td { padding:10px; border:1px solid #ccc; text-align:left; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+/* 3D Animated Background */
+body{
+    min-height:100vh;
+    padding:30px;
+    background: linear-gradient(135deg,#b7f7d4,#d4ffe8,#b7f7d4);
+    background-size:400% 400%;
+    animation:bgMove 10s infinite;
+}
+
+/* Page Title */
+h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#1e4d3a;
+}
+
+/* Glass Card Container */
+.table-box{
+    background: rgba(255,255,255,0.85);
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+    transform-style: preserve-3d;
+    transition:0.3s;
+}
+
+.table-box:hover{
+    transform: rotateX(3deg) rotateY(-3deg);
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#1e4d3a;
+    color:white;
+}
+
+th, td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+/* Row hover */
+tr:hover{
+    background:#e8fff4;
+    transform:scale(1.01);
+}
+
+/* Back button */
 .back-btn{
   position:fixed;
   bottom:20px;
 }
+
 .back-btn button{
-  padding:8px 14px;
-  font-size:13px;
+  padding:10px 16px;
   border:none;
-  border-radius:12px;
-  background:#1e1e2f;
+  border-radius:20px;
+  background:#1e4d3a;
   color:white;
+  cursor:pointer;
+  box-shadow:0 5px 12px rgba(0,0,0,0.3);
+}
+
+.back-btn button:hover{
+  transform:translateY(-3px);
+}
+
+/* Background Animation */
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 </style>
+
 </head>
+
 <body>
+
 <h2>Asset List</h2>
+
+<div class="table-box">
+
 <table>
-<tr><th>ID</th><th>Name</th><th>Status</th></tr>
-<tr><td>1</td><td>Laptop</td><td>Assigned</td></tr>
-<tr><td>2</td><td>Printer</td><td>Available</td></tr>
+<tr>
+<th>ID</th>
+<th>Asset Name</th>
+<th>Category</th>
+<th>Status</th>
+<th>Location</th>
+</tr>
+
+<tr><td>1</td><td>Laptop Dell XPS</td><td>IT Equipment</td><td>Assigned</td><td>Admin Dept</td></tr>
+<tr><td>2</td><td>HP Printer</td><td>Office Device</td><td>Available</td><td>Storage</td></tr>
+<tr><td>3</td><td>Projector Epson</td><td>Presentation</td><td>Assigned</td><td>Meeting Room</td></tr>
+<tr><td>4</td><td>Office Chair</td><td>Furniture</td><td>Available</td><td>Warehouse</td></tr>
+<tr><td>5</td><td>Router Cisco</td><td>Networking</td><td>Maintenance</td><td>Server Room</td></tr>
+<tr><td>6</td><td>Tablet Samsung</td><td>IT Equipment</td><td>Assigned</td><td>Field Team</td></tr>
+<tr><td>7</td><td>Scanner Canon</td><td>Office Device</td><td>Available</td><td>Front Desk</td></tr>
+<tr><td>8</td><td>LED Monitor</td><td>IT Equipment</td><td>Assigned</td><td>HR Dept</td></tr>
+
 </table>
+
+</div>
+
 <div class="back-btn">
   <button onclick="history.back()">← Back</button>
 </div>
+
 </body>
 </html>

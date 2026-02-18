@@ -5,143 +5,199 @@
 <title>AssetVault - Dashboard</title>
 
 <style>
-body {
-    margin: 0;
+
+/* ---------- LIGHT GREEN 3D BACKGROUND ---------- */
+body{
+    margin:0;
     font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
+    background: linear-gradient(135deg,#d4fc79,#96e6a1);
+    background-size: 300% 300%;
+    animation: moveBG 10s infinite alternate;
+}
+
+/* subtle motion */
+@keyframes moveBG{
+    0%{background-position:left}
+    100%{background-position:right}
 }
 
 /* Layout */
-.container {
-    display: flex;
+.container{ display:flex; }
+
+/* Sidebar 3D depth */
+.sidebar{
+    width:220px;
+    background:#1b4332;
+    height:100vh;
+    padding-top:20px;
+    position:fixed;
+    box-shadow:6px 0 20px rgba(0,0,0,.3);
 }
 
-/* Sidebar */
-.sidebar {
-    width: 220px;
-    background-color: #2c3e50;
-    height: 100vh;
-    padding-top: 20px;
-    position: fixed;
+.sidebar h2{
+    color:white;
+    text-align:center;
 }
 
-.sidebar h2 {
-    color: white;
-    text-align: center;
-    margin-bottom: 20px;
+.sidebar a{
+    display:block;
+    color:white;
+    padding:12px 20px;
+    text-decoration:none;
 }
 
-.sidebar a {
-    display: block;
-    color: white;
-    padding: 12px 20px;
-    text-decoration: none;
-    font-size: 14px;
+.sidebar a:hover{
+    background:#2d6a4f;
 }
 
-.sidebar a:hover {
-    background-color: #34495e;
+/* Main */
+.main{
+    margin-left:220px;
+    padding:20px;
+    width:100%;
 }
 
-/* Main Content */
-.main {
-    margin-left: 220px;
-    padding: 20px;
-    width: 100%;
+/* Glass header */
+.header{
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px);
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
 }
 
-.header {
-    background-color: white;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
+/* ---------- FLIP CARD 3D ---------- */
+.cards{
+    display:flex;
+    flex-wrap:wrap;
+    gap:25px;
+    margin-top:20px;
 }
 
-.cards {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+.flip-card{
+    background:transparent;
+    width:220px;
+    height:140px;
+    perspective:1000px;
 }
 
-.card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 200px;
-    text-align: center;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+.flip-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform .7s;
+    transform-style: preserve-3d;
 }
+
+.flip-card:hover .flip-inner{
+    transform: rotateY(180deg) scale(1.05);
+}
+
+/* front/back */
+.flip-front,.flip-back{
+    position:absolute;
+    width:100%;
+    height:100%;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    color:white;
+    backface-visibility:hidden;
+    box-shadow:0 12px 25px rgba(0,0,0,.25);
+}
+
+/* green theme */
+.flip-front{
+    background:linear-gradient(145deg,#52b788,#2d6a4f);
+}
+
+.flip-back{
+    background:linear-gradient(145deg,#40916c,#1b4332);
+    transform: rotateY(180deg);
+}
+
+/* Back button */
 .back-btn{
   position:fixed;
   bottom:20px;
 }
 .back-btn button{
   padding:8px 14px;
-  font-size:13px;
   border:none;
   border-radius:12px;
-  background:#1e1e2f;
+  background:#1b4332;
   color:white;
 }
+
 </style>
 </head>
 
 <body>
 
 <div class="container">
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>AssetVault</h2>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>AssetVault</h2>
-        
-        <a href="dashboard.html">📊 Dashboard</a>
-        <a href="asset list.html">📋 Asset List</a>
-        <a href="add asset.html">➕ Add Asset</a>
-        <a href="asset details.html">🔍 Asset Details</a>
-        <a href="assignment history.html">🕘 Assignment History</a>
-        <a href="maintenance log.html">🛠 Maintenance Log</a>
-        <a href="reports.html">📈 Reports</a>
-        <a href="alerts.html">🔔 Alerts</a>
-        <a href="documents.html">📁 Documents</a>
-        <a href="settings.html">⚙ Settings</a>
-        <a href="help page.html">❓ Help</a>
-        <a href="login.html">🚪 Logout</a>
-    </div>
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="asset list.html">📋 Asset List</a>
+    <a href="add asset.html">➕ Add Asset</a>
+    <a href="asset details.html">🔍 Asset Details</a>
+    <a href="assignment history.html">🕘 Assignment History</a>
+    <a href="./maintanance.html">🛠 Maintenance Log</a>
+    <a href="reports.html">📈 Reports</a>
+    <a href="alerts.html">🔔 Alerts</a>
+    <a href="documents.html">📁 Documents</a>
+    <a href="settings.html">⚙ Settings</a>
+    <a href="help page.html">❓ Help</a>
+    <a href="login.html">🚪 Logout</a>
+</div>
 
-    <!-- Main Content -->
-    <div class="main">
-        <div class="header">
-            <h1>Dashboard</h1>
-            <p>Welcome to AssetVault Asset Management System</p>
-        </div>
 
-        <div class="cards">
-            <div class="card">
-                <h3>Total Assets</h3>
-                <p>120</p>
-            </div>
+<!-- Main -->
+<div class="main">
 
-            <div class="card">
-                <h3>Assigned</h3>
-                <p>85</p>
-            </div>
+<div class="header">
+<h1>Dashboard</h1>
+<p>Welcome to AssetVault Asset Management System</p>
+</div>
 
-            <div class="card">
-                <h3>Available</h3>
-                <p>30</p>
-            </div>
+<div class="cards">
 
-            <div class="card">
-                <h3>Maintenance Due</h3>
-                <p>5</p>
-            </div>
-        </div>
-    </div>
+<!-- Cards -->
+<script>
+const cardData=[
+["Total Assets","120","All registered assets"],
+["Assigned","85","Assets currently in use"],
+["Available","30","Ready for assignment"],
+["Maintenance","5","Needs service"],
+["New Assets","12","Added this month"],
+["Warranty Expired","7","Check replacements"],
+["Alerts","3","Pending notifications"],
+["Documents","54","Stored files"]
+];
+
+document.write(cardData.map(c=>`
+<div class="flip-card">
+<div class="flip-inner">
+<div class="flip-front">
+<h3>${c[0]}</h3>
+<p>${c[1]}</p>
+</div>
+<div class="flip-back">
+<p>${c[2]}</p>
+</div>
+</div>
+</div>
+`).join(""));
+</script>
 
 </div>
-<div class="back-btn">
-  <button onclick="history.back()">← Back</button>
 </div>
+</div>
+
 
 
 </body>

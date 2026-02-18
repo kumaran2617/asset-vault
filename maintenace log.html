@@ -2,31 +2,133 @@
 <html>
 <head>
 <title>Maintenance Log</title>
+
 <style>
-body { font-family: Arial; background:#f4f6f8; padding:20px; }
-.box { background:white; padding:20px; }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+/* Animated Background */
+body{
+    min-height:100vh;
+    padding:30px;
+    background: linear-gradient(135deg,#b7f7d4,#d4ffe8,#b7f7d4);
+    background-size:400% 400%;
+    animation:bgMove 10s infinite;
+}
+
+/* Title */
+h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#1e4d3a;
+}
+
+/* 3D Card */
+.box{
+    background: rgba(255,255,255,0.9);
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    transform-style:preserve-3d;
+    transition:0.3s;
+}
+
+.box:hover{
+    transform: rotateX(4deg) rotateY(-4deg);
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#1e4d3a;
+    color:white;
+}
+
+th, td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+/* Hover */
+tr:hover{
+    background:#e8fff4;
+    transform:scale(1.01);
+}
+
+/* Back button */
 .back-btn{
   position:fixed;
   bottom:20px;
 }
 .back-btn button{
-  padding:8px 14px;
-  font-size:13px;
+  padding:10px 16px;
   border:none;
-  border-radius:12px;
-  background:#1e1e2f;
+  border-radius:20px;
+  background:#1e4d3a;
   color:white;
+}
+
+/* Animation */
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 </style>
 </head>
+
 <body>
-<div class="box">
+
 <h2>Maintenance Log</h2>
-<p>Laptop - Screen Check - 10 Jan 2026</p>
-<p>Printer - Ink Refill - 05 Jan 2026</p>
+
+<div class="box">
+
+<table id="maintTable">
+<tr>
+<th>Asset</th>
+<th>Service</th>
+<th>Date</th>
+<th>Technician</th>
+</tr>
+</table>
+
 </div>
+
 <div class="back-btn">
   <button onclick="history.back()">← Back</button>
 </div>
+
+<script>
+/* Load Maintenance Data */
+let data = JSON.parse(localStorage.getItem("maintenance")) || [
+
+{asset:"Laptop Dell XPS", service:"Screen Inspection", date:"10 Jan 2026", tech:"Ravi"},
+{asset:"HP Printer", service:"Ink Refill", date:"05 Jan 2026", tech:"Kumar"},
+{asset:"Router Cisco", service:"Firmware Update", date:"12 Jan 2026", tech:"IT Team"},
+{asset:"Projector Epson", service:"Lens Cleaning", date:"15 Jan 2026", tech:"Meena"}
+
+];
+
+let table = document.getElementById("maintTable");
+
+data.forEach(m=>{
+    let row = table.insertRow();
+    row.innerHTML = `
+        <td>${m.asset}</td>
+        <td>${m.service}</td>
+        <td>${m.date}</td>
+        <td>${m.tech}</td>
+    `;
+});
+</script>
+
 </body>
 </html>
